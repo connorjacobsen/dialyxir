@@ -14,7 +14,7 @@ defmodule Dialyxir.Formatter.Dialyxir do
         string = warning.format_long(arguments)
 
         """
-        #{base_name}:#{line}:#{warning_name}
+        #{base_name}:#{format_line(line)}:#{warning_name}
         #{string}
         """
       rescue
@@ -89,4 +89,7 @@ defmodule Dialyxir.Formatter.Dialyxir do
       throw({:error, :unknown_warning, warning_name})
     end
   end
+
+  defp format_line({line, col}), do: "#{line}:#{col}"
+  defp format_line(line), do: "#{line}"
 end

@@ -10,7 +10,7 @@ defmodule Dialyxir.Formatter.Short do
     warning = warning(warning_name)
     string = warning.format_short(arguments)
 
-    "#{base_name}:#{line}:#{warning_name} #{string}"
+    "#{base_name}:#{format_line(line)}:#{warning_name} #{string}"
   end
 
   defp warning(warning_name) do
@@ -22,4 +22,7 @@ defmodule Dialyxir.Formatter.Short do
       throw({:error, :unknown_warning, warning_name})
     end
   end
+
+  defp format_line({line, col}), do: "#{line}:#{col}"
+  defp format_line(line), do: "#{line}"
 end
